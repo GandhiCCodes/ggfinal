@@ -1,17 +1,15 @@
-def create
-  @user = User.find_by({ "email" => params["email"] }) 
+class UsersController < ApplicationController
+  def new
+  end
 
-  if @user != nil  
-    if BCrypt::Password.new(@user["password_digest"]) == params["password"]  
-      session["user_id"] = @user["id"]  
-      flash["notice"] = "Hello."
-      redirect_to "/places"
-    else
-      flash["notice"] = "Nope. Wrong password."
-      redirect_to "/login"
-    end
-  else
-    flash["notice"] = "Nope. Email not found."
+  def create
+    @user = User.new
+    @user.username = params["username"]
+    @user.email = params["email"]
+    @user.password = params["password"]  
+    @user.save
+
+    flash[:notice] = "Thanks for signing up. Now login."
     redirect_to "/login"
   end
 end
