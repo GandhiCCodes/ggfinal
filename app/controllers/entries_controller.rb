@@ -2,7 +2,12 @@ class EntriesController < ApplicationController
   before_action :require_login 
 
   def new
+    @entry = Entry.new
+    @entries = Entry.where(place_id: params[:place_id])  # Fetch only relevant entries
   end
+  
+
+  
 
   def create
     @entry = Entry.new

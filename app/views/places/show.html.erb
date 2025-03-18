@@ -1,4 +1,10 @@
-<h1><%= @place["name"] %></h1>
+<h1><%= @place.name %></h1>
+
+<% if @place.image.present? %>
+  <p><%= image_tag @place.image, class: "img-fluid" %></p>
+<% else %>
+  <p>No image uploaded.</p>
+<% end %>
 
 <h2>My Entries</h2>
 <% for entry in @entries %>

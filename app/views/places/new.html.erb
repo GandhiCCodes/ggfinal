@@ -1,10 +1,15 @@
 <h1>New Place</h1>
 
-<form action="/places" method="post">
+<%= form_with model: @place, url: places_path, method: :post, local: true, html: { multipart: true } do |f| %>
   <div class="mb-3">
-    <label for="name" class="form-label">Place Name</label>
-    <input type="text" name="name" id="name" class="form-control">
+    <%= f.label :name, "Place Name", class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
-  <button class="btn btn-primary">Create Place</button>
-</form>
+  <div class="mb-3">
+    <%= f.label :image, "Upload Image", class: "form-label" %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Create Place", class: "btn btn-primary" %>
+<% end %>
