@@ -2,8 +2,15 @@ class PlacesController < ApplicationController
   before_action :require_login  
 
   def index
-    @places = Place.all
+    if session[:user_id]
+      @places = Place.where(user_id: session[:user_id]) # Show only logged-in user's places
+    else
+      @places = [] # Empty array if no user is logged in
+      flash[:notice] = "You must be logged in to view places."
+      redirect_to "/login"
+    end
   end
+  
 
   def show
     @place = Place.find_by({ "id" => params["id"] })
@@ -14,9 +21,16 @@ class PlacesController < ApplicationController
   end
 
   def create
-    @place = Place.new
-    @place["name"] = params["name"]
-    @place.save
-    redirect_to "/places"
+    if session[:user_id]
+      @place = Place.new
+      @place["name"] = params["name"]
+      @place["user_id"] = session[:user_id] # Assign logged-in user
+      @place.save
+      redirect_to "/places"
+    else
+      flash[:notice] = "You must be logged in to add a new place."
+      redirect_to "/login"
+    end
   end
+  
 end
