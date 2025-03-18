@@ -1,4 +1,5 @@
 class PlacesController < ApplicationController
+  before_action :require_login  
 
   def index
     @places = Place.all
@@ -18,5 +19,4 @@ class PlacesController < ApplicationController
     @place.save
     redirect_to "/places"
   end
-
 end
