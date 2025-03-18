@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.2"
@@ -11,15 +12,12 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # gem "aws-sdk-s3", require: false
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
-end
-
-group :development do
   gem "sqlite3", "~> 1.4"
-  gem "tabulo"
+  gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "web-console"
 end
 
 group :production do
-  gem "pg"
+  gem "pg" # PostgreSQL for production
 end
+
